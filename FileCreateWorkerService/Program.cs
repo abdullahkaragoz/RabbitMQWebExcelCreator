@@ -1,4 +1,6 @@
+using FileCreateWorkerService.Models;
 using FileCreateWorkerService.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,6 +21,10 @@ namespace FileCreateWorkerService
         .ConfigureServices((hostContext, services) =>
         {
             IConfiguration Configuration = hostContext.Configuration;
+            services.AddDbContext<AdventureWorks2012Context>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("SqlServer"));
+            });
             services.AddSingleton<RabbitMQClientService>();
             services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(Configuration.GetConnectionString("RabbitMQ")), DispatchConsumersAsync = true });
 
