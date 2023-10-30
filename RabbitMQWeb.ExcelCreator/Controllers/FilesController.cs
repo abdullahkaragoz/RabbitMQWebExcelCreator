@@ -20,13 +20,13 @@ namespace RabbitMQWeb.ExcelCreator.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Updoad(FormFile file, int fileId)
+        public async Task<IActionResult> Updoad(IFormFile file, int fileId)
         {
             if (file is not { Length: > 0 }) return BadRequest();
 
-            var userFile = await _context.UserFiles.FirstAsync(x=>x.Id == fileId);
-            var filePath  = userFile.FileName + Path.GetExtension(file.FileName);
-            var path = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot/files", file.FileName);
+            var userFile = await _context.UserFiles.FirstAsync(x => x.Id == fileId);
+            var filePath = userFile.FileName + Path.GetExtension(file.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/files", filePath);
 
             using FileStream stream = new(path, FileMode.Create);
             await file.CopyToAsync(stream);

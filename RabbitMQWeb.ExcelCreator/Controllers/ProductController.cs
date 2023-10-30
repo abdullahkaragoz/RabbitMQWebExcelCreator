@@ -46,8 +46,7 @@ namespace RabbitMQWeb.ExcelCreator.Controllers
 
             _rabbitMQPublisher.Publish(new Shared.CreateExcelMessage()
             {
-                FileId = userFile.Id,
-                UserId = user.Id
+                FileId = userFile.Id
             });
             TempData["StartCreatingExcel"] = true;
 
