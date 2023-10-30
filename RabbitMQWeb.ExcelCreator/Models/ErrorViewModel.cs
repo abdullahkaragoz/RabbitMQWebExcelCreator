@@ -1,5 +1,3 @@
-using System;
-
 namespace RabbitMQWeb.ExcelCreator.Models
 {
     public class ErrorViewModel
